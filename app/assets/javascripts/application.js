@@ -17,3 +17,4 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+$('#error_explanation').wrap("<div data-alert class='alert-box alert'></div>")

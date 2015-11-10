@@ -14,3 +14,15 @@
  *= require_self
  *= require foundation_and_overrides
  */
+.no-action {
+  pointer-events: none;
+  color: #fff;
+  padding: 8px;
+  background-color: #000;
+}
+#error_explanation h2{
+  color: #fff;
+}
+.alert-box {
+  opacity: 0.8;
+}
