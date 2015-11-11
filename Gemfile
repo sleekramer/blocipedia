@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml'
+gem 'haml-rails', '~> 0.9'
+gem 'html2haml'
 
 gem 'zurb-foundation'
 
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker', '~> 1.5'
 end
 
 group :development do
