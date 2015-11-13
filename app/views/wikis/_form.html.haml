@@ -1,0 +1,5 @@
+= form_for [current_user, @wiki] do |f|
+  = f.text_field :title
+  = f.text_area :body
+  = f.check_box :private
+  = f.submit

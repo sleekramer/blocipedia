@@ -28,6 +28,7 @@ gem 'haml-rails', '~> 0.9'
 gem 'html2haml'
 
 gem 'zurb-foundation'
+gem 'foundation_rails_helper'
 
 gem 'devise'
 # Use ActiveModel has_secure_password
@@ -52,4 +53,5 @@ end
 group :development do
   gem 'sqlite3'
   gem 'pry-rails'
+  gem 'spring-commands-rspec'
 end
