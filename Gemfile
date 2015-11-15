@@ -24,8 +24,11 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml'
+gem 'haml-rails', '~> 0.9'
+gem 'html2haml'
 
 gem 'zurb-foundation'
+gem 'foundation_rails_helper'
 
 gem 'devise'
 # Use ActiveModel has_secure_password
@@ -44,9 +47,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker', '~> 1.5'
 end
 
 group :development do
   gem 'sqlite3'
   gem 'pry-rails'
+  gem 'spring-commands-rspec'
 end
