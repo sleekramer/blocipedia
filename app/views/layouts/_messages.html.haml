@@ -1,6 +1,6 @@
 - flash.each do |key, value|
-  %div{class: "alert-box #{key}"}
-    %a{:href => "#", :class => "close"} &times;
+  %div{class: "alert-box #{key}", data: {'alert' => ''}}
+    %a{href: "#", class: "close"} &times;
     %ul
       %li
         = value

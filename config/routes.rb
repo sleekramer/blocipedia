@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get '/about' => 'welcome#about'
   devise_for :users
-  resources :users, only: [:show] do
+  resources :users, only: [] do
     resources :wikis
   end
 
@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   end
 
   root to: 'welcome#index'
+
+  resources :charges, only: [:new, :create]
+  get '/charges/downgrade' => 'charges#downgrade', as: :downgrade
+  post '/to_standard' => 'charges#to_standard', as: :to_standard
 end

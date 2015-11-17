@@ -1,0 +1,10 @@
+.row
+  .large-8.columns
+    %h1
+      Downgrade to Standard
+      %br
+      %small
+        If you downgrade your account all of your private wikis will become public.  
+    =link_to "Continue", to_standard_path, class: 'button primary radius', method: :post, data: {confirm: "Are you sure you want to cancel your premium membership?"}
+    %br
+    =link_to "Cancel", root_path
