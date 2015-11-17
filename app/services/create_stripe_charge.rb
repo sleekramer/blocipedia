@@ -2,7 +2,6 @@ class CreateStripeCharge
 
   def self.call(user, stripe_token)
     @customer = create_customer(user, stripe_token)
-    @stripe_token = stripe_token
     charge = create_charge
     if charge.paid
       user.update(customer_id: @customer.id)
