@@ -1,10 +1,5 @@
 class ChargesController < ApplicationController
 
-  class Amount
-    def self.default
-      15_00
-    end
-  end
 
   # def create
   #   unless Stripe::Plan.retrieve(id: 'premium')
@@ -24,6 +19,7 @@ class ChargesController < ApplicationController
   #   )
 
   #   if customer.subscriptions['total_count'] > 0
+  #     current_user.customer_id = customer.id
   #     current_user.premium!
   #     flash[:notice] = "Thank you, #{current_user.email}, for becoming a premium member.  Your account has been charged $5.  Go create your first private wiki!"
   #     redirect_to (user_wikis_path(current_user) || root_path)
@@ -41,21 +37,7 @@ class ChargesController < ApplicationController
       flash[:notice] = "Already a premium member. Account not charged."
       redirect_to user_wikis_path(current_user)
     else
-
-      customer = Stripe::Customer.create(
-        email: current_user.email,
-        card: params[:stripeToken]
-      )
-    
-      charge = Stripe::Charge.create(
-        customer: customer.id,
-        amount: Amount.default,
-        description: "Premium Membership",
-        currency: 'usd'
-      )
-      if charge.paid
-        current_user.customer_id = customer.id
-        current_user.premium!
+      if CreateStripeCharge.call(current_user, params[:stripeToken])
         flash[:notice] = "Thank you, #{current_user.email}, for becoming a premium member.  Your account has been charged $5.  Go create your first private wiki!"
         redirect_to (user_wikis_path(current_user)|| root_path)
       else
@@ -72,20 +54,25 @@ class ChargesController < ApplicationController
     @stripe_btn_data = {
       key: "#{ Rails.configuration.stripe[:publishable_key]}",
       description: "Premium Membership",
-      amount: Amount.default
+      amount: 15_00
     }
   end
+
   def downgrade
   end
+
   def to_standard
     current_user.standard!
-    current_user.wikis.each do |wiki|
-      if wiki.private
-        wiki.update_attributes(private: false)
-      else
-        next
-      end
+    current_user.wikis.where(private: true).each do |wiki|
+      wiki.update(private: false)
     end
+    # current_user.wikis.each do |wiki|
+    #   if wiki.private
+    #     wiki.update_attributes(private: false)
+    #   else
+    #     next
+    #   end
+    # end
     redirect_to user_wikis_path(current_user)
   end
 end
