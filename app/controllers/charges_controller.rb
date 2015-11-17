@@ -9,6 +9,8 @@ class ChargesController < ApplicationController
 
 
   def create
+    # if you only display the upgrade button for non-premium users you
+    # should not need this
     if current_user.customer_id && current_user.premium?
       flash[:notice] = "Already a premium member. Account not charged."
       redirect_to user_wikis_path(current_user)
@@ -40,6 +42,7 @@ class ChargesController < ApplicationController
 
   def to_standard
     current_user.standard!
+    # a bit simpler
     current_user.wikis.where(private: true).each do |wiki|
       wiki.update(private: false)
     end
