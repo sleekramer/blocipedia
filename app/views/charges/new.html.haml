@@ -1,0 +1,16 @@
+.row
+  .large-8.columns
+    %h1
+      Become a Premium Member
+      %br
+      %small Upgrade your account today! Start creating private wikis, that only you can view and update!
+
+    = form_tag charges_path do
+      %h4 Only $15!
+      = javascript_include_tag "https://checkout.stripe.com/checkout.js",
+        :class => "stripe-button",
+        :"data-key" => "#{@stripe_btn_data[:key]}",
+        :"data-description" => "#{@stripe_btn_data[:description]}",
+        :"data-amount" => "#{@stripe_btn_data[:amount]}"
+      %br
+      = link_to "Continue as standard user", user_wikis_path(current_user)
