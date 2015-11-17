@@ -7,10 +7,7 @@
           .panel
             %h6= link_to "#{wiki.title}", user_wiki_path(current_user, wiki)
             %small= wiki.body
-            -if wiki.private
-              %br
-              .private
-                private
+            = render partial: 'wikis/private', locals: {wiki: wiki}
     - if @wikis
       %h1
         -if current_user.wikis.size > 0
@@ -18,10 +15,11 @@
         -else
           All Wikis
         - @wikis.each do |wiki|
-          .panel
-            -unless wiki.private
+          -if display_in_index?(wiki)
+            .panel
               %h6= link_to "#{wiki.title}", user_wiki_path(current_user, wiki)
               %small= wiki.body
+              = render partial: 'wikis/private', locals: {wiki: wiki}
     - else
       %h1 No Wikis In Existence
       %h3 Create a Wiki for anything you wish
