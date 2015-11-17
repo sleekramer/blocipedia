@@ -1,11 +1,10 @@
 class CreateStripeCharge
 
   def self.call(user, stripe_token)
-    @customer = create_customer 
-    @stripe_token = stripe_token
-    charge = create_charge 
+    @customer = create_customer(user, stripe_token)
+    charge = create_charge
     if charge.paid
-      user.update(customer_id: customer.id)
+      user.update(customer_id: @customer.id)
       user.premium! # returns true
     else
       false
@@ -13,10 +12,10 @@ class CreateStripeCharge
   end
 
   private
-  def create_customer
+  def create_customer(user, stripe_token)
     Stripe::Customer.create(
       email: user.email,
-      card: @stripe_token 
+      card: stripe_token 
     )
   end
 
