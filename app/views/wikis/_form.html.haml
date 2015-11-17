@@ -1,7 +1,7 @@
 = form_for [current_user, @wiki] do |f|
   = f.text_field :title
   = f.text_area :body
-  -if current_user.premium? || current_user.admin?
+  -if user_authorized_for_private?(@wiki)
     = f.check_box :private
   = f.submit
   = link_to "Cancel", (request.referer || user_wikis_path(current_user))
