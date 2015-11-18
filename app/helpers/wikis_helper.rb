@@ -1,4 +1,4 @@
-module WikisHelper
+module WikisHelper 
   def display_wiki_content?(wiki)
     (wiki.private && (wiki.user == current_user || current_user.admin?)) || !wiki.private
   end
