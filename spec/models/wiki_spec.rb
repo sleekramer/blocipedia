@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Wiki, type: :model do
-  let(:user) { User.create!(email:'blocipedia@bloc.com',password:'blocipedia')}
-  let(:wiki) { user.wikis.create!(title:'Test wiki',body:'This will be the test body')}
-  sign_in(user.email, user.password)
-  it {should belong_to(:user) }
+  let(:user) { create(:user)}
+  let(:wiki) { create(:wiki, user: user)}
 
+  it {should belong_to(:user) }
+  it {should have_many(:collaborators) }
   describe "attributes" do
     it "responds to title" do
       expect(wiki).to respond_to :title

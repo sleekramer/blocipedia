@@ -3,5 +3,7 @@
   = f.text_area :body
   -if user_authorized_for_private?(@wiki)
     = f.check_box :private
+  -if @wiki.private && collab_authorized?(@wiki)
+    = render partial: 'collaborators/form', locals: {f: f, collaborators: @wiki.collaborators}
   = f.submit
   = link_to "Cancel", (request.referer || user_wikis_path(current_user))
