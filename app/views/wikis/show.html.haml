@@ -9,7 +9,7 @@
     .large-4.columns
       %h3 Creator:
       %p= @wiki.user.email
-      -if @wiki.private && @wiki.collaborators != []
+      -if @wiki.private && @wiki.collaborators.any?
         %h3
           Collaborators:
         %ul
