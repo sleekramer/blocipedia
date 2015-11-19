@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { create(:user)}
   it { should have_many(:wikis)}
+  it { should have_many(:collaborators) }
   describe "attributes" do
     it "responds to role" do
       expect(user).to respond_to(:role)

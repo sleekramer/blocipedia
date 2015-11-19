@@ -1,8 +1,9 @@
 class WikisController < ApplicationController
+  include WikisHelper
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki.all)
   end
 
   def show
@@ -18,6 +19,7 @@ class WikisController < ApplicationController
     authorize @wiki
 
     if @wiki.update_attributes(wiki_params)
+      @wiki.collaborators = Collaborator.update_collaborators(@wiki, params[:wiki][:collaborators]) if collab_authorized?(@wiki)
       redirect_to [@wiki.user, @wiki], notice: "Wiki updated"
     else
       flash[:alert] = "Unable to update wiki. Please try again."
@@ -64,4 +66,5 @@ class WikisController < ApplicationController
   def wiki_params
     params.require(:wiki).permit(:title, :body, :private)
   end
+
 end

@@ -1,19 +1,16 @@
 .row
   .small-6.large-8.columns
-    -if current_user.wikis.size > 0
+    -if wiki_sections = (user_wikis(@wikis) != [])
       %h1
         Your Wikis
-        - current_user.wikis.each do |wiki|
+        - user_wikis(@wikis).each do |wiki|
           .panel
             %h6= link_to "#{wiki.title}", user_wiki_path(current_user, wiki)
             %small= wiki.body
             = render partial: 'wikis/private', locals: {wiki: wiki}
     - if @wikis
       %h1
-        -if current_user.wikis.size > 0
-          All Other Wikis
-        -else
-          All Wikis
+        = wiki_sections ? "All Other Wikis" : "All Wikis"
         - @wikis.each do |wiki|
           -if display_in_index?(wiki)
             .panel
