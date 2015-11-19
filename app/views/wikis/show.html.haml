@@ -3,7 +3,8 @@
     .large-8.columns
 
       %h1= @wiki.title
-      %p= @wiki.body
+      :markdown
+        #{markdown(@wiki.body)}
 
     .large-4.columns.down-right
       = link_to "Back to Wikis", user_wikis_path(current_user), class: 'button success radius'
