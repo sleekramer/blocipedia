@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :wikis
   has_many :collaborators
-  has_many :wikis, through: :collaborators
+  has_many :shared_wikis, through: :collaborators, source: :wiki
 
   after_initialize :set_default_role
 
