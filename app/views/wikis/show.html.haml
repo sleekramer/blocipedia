@@ -17,7 +17,7 @@
             %li= user
       .down-right
         = link_to "Back to Wikis", user_wikis_path(current_user), class: 'button success radius'
-        %a{ :href => "#", :'data-dropdown' => 'drop1', :class => 'button dropdown secondary radius'}Edit Wiki
+        %a.button.dropdown.secondary.radius{"data-dropdown" => "drop1", :href => "#"} Edit Wiki
         %br
         %ul{ id: 'drop1', class: 'f-dropdown' }
           %li= link_to "Edit wiki content", edit_user_wiki_path(current_user, @wiki)
