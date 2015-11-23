@@ -17,3 +17,23 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
+
+var convertMarkdown = function(source, target) {
+  var html = $(source).val();
+  $(target).html(marked(html));
+};
+
+$(document).ready(function(){
+  $('#wiki_title').keyup(function(){
+    convertMarkdown($(this), '#markdown_title')
+  });
+  $('#wiki_body').keyup(function(){
+    convertMarkdown($(this), '#markdown_body')
+  });
+});

@@ -1,9 +1,15 @@
-= form_for [current_user, @wiki] do |f|
-  = f.text_field :title
-  = f.text_area :body
-  -if user_authorized_for_private?(@wiki)
-    = f.check_box :private
-  -if @wiki.private && collab_authorized?(@wiki)
-    = render partial: 'collaborators/form', locals: {f: f, collaborators: @wiki.collaborators}
-  = f.submit
-  = link_to "Cancel", (request.referer || user_wikis_path(current_user))
+.row
+  .large-6.columns
+    = form_for [current_user, @wiki] do |f|
+      = f.text_field :title
+      = f.text_area :body
+      -if user_authorized_for_private?(@wiki)
+        = f.check_box :private
+      -if @wiki.private && collab_authorized?(@wiki)
+        = render partial: 'collaborators/form', locals: {f: f, collaborators: @wiki.collaborators}
+      = f.submit
+      = link_to "Cancel", (request.referer || user_wikis_path(current_user))
+  .large-6.columns
+    .panel
+      #markdown_title
+      #markdown_body
